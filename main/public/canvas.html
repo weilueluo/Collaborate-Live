@@ -1,0 +1,393 @@
+<!DOCTYPE html lang="en">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles/materialize.min.css">
+  <link rel="stylesheet" href="styles/tabstyle.css">
+  <link rel="stylesheet" href="styles/canvas.css">
+
+  <!-- Links to firebase library-->
+  <script type="text/javascript" src ="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+
+  <!-- SOCKET.IO -->
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+  <!-- JQuery -->
+  <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <!-- Xterm -->
+  <link rel="stylesheet" href="xterm/xterm.css" />
+  <script src="xterm/xterm.js"></script>
+  <script src="xterm/addons/fit/fit.js"></script>
+
+  <!-- ACE and its JavaScript mode and theme files -->
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-javascript.js"></script>
+
+  <!-- Firebase -->
+  <script language="javascript" type="text/javascript" src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
+  <script language="javascript" type="text/javascript" src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
+  <script language="javascript" type="text/javascript" src="scripts/config.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <title>Collaborative Live</title>
+</head>
+
+<body>
+
+  <!-- NOTE: TODO: info -->
+  <div id="CollaborateLive">
+    <ul id="">
+      <!-- NI MA ZHA LE -->
+    </ul>
+  </div>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="signup-text" required />
+          <label for="signup-text">One Line Bio</label>
+        </div>
+        <button id="modal-signup-button" class="btn z-depth-0">Sign up</button>
+        <p class="error pink-text center-align"></p>
+      </form>
+    </div>
+  </div>
+  <!-- LOGIN MODAL -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <h4>Login</h4><br />
+      <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="login-email" required />
+          <label for="login-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="login-password" required />
+          <label for="login-password">Your password</label>
+        </div>
+        <button id="modal-login-button" class="btn z-depth-0">Login</button>
+        <p class="error pink-text center-align"></p>
+      </form>
+    </div>
+  </div>
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+    <div class="modal-content center-align">
+      <h4><div class="account-name"></div></h4><br/>
+      <div class="account-details"></div>
+
+      <!-- MAKE ADMIN -->
+      <form class="center-align admin-actions admin" style="margin: 40px auto; max-width: 300px; display: none;">
+        <input type="email" placeholder="User email" id="admin-email" required  />
+        <button class="btn-small">Make Admin</button>
+      </form>
+
+    </div>
+  </div>
+  <!-- CREATE TASK MODAL -->
+  <div id="modal-create" class="modal">
+    <div class="modal-content">
+      <h4>Create a Task</h4><br />
+      <form id="create-form">
+        <div class="input-field">
+          <input type="text" id="title" required>
+          <label for="title">Task</label>
+        </div>
+        <div class="input-field">
+          <textarea id="content" class="materialize-textarea" required></textarea>
+          <label for="content">Task Description</label>
+        </div>
+        <button class="btn">Create</button>
+      </form>
+    </div>
+  </div>
+
+
+<!-- DONT PUT ANY CONTENT OUTSIDE THE-WRAPPER -->
+
+<div id="the-wrapper">
+  <!-- absolute background -->
+  <div id="background" class="wallpaper"></div>
+  <!-- NAVBAR -->
+  <div id="navbar" class="max-scale max-limit">
+    <nav class="component-background">
+      <div class="nav-wrapper container">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!-- <li class="logged-in" style="display: none;">
+            <a href="canvas.html" class="grey-text modal-trigger" data-target="modal-open">Open a Canvas</a>
+          </li> -->
+          <li class="admin" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create a Task</a>
+          </li>
+          <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in" style="display: none;">
+            <a class="grey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+          <li class="logged-out" style="display: none;">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+          </li>
+        </ul>
+        <i id="icon" class="fab fa-diaspora"></i>
+      </div>
+    </nav>
+  </div>
+  <!-- content: tab chat video canvases... -->
+  <div id="content-wrapper">
+    <!-- TAB STUFF -->
+    <div id="tab-content" class="max-limit max-scale">
+      <!-- Tab links -->
+      <div id="tab" class="component-background tab-item-content tab max-scale">
+        <button id="tab-drawing-button" class="option-button tablinks" onclick="openTab(event, 'Drawing')"><span>Drawing</span></button>
+        <button id="tab-coding-button" class="option-button tablinks" onclick="openTab(event, 'Coding')"><span>Coding</span></button>
+        <button id="tab-terminal-button" class="option-button tablinks" onclick="openTab(event, 'Term')"><span>Terminal</span></button>
+        <button id="tab-task-button" class="option-button tablinks" onclick="openTab(event, 'Tasks')"><span>Tasks</span></button>
+      </div>
+
+      <!-- Tab content -->
+      <div id="Drawing" class="component-background tab-item-content max-scale tabcontent">
+        <div id="wrapper" class="max-scale">
+
+          <div class="content-wrapper max-scale max-limit">
+            <div id="canvascontainer" class="max-scale">
+              <!-- canvas will be added to here -->
+            </div>
+            <div class="canvas-options-container max-scale">
+              <input id="colorpicker" type="color" class="option-button canvas-option-button" value="#9b1d5c">
+              <button id="eraser" onclick="toggleeraser()" class="option-button canvas-option-button">eraser</button>
+              <button id="line" onclick="toggleline()" class="option-button canvas-option-button">line</button>
+              <button class="option-button optionsButton" id="saveButton" onclick="saveCanvas(canvas, 'myCanvas', 'jpg')">save</button>
+              <button class="option-button optionsButton" id="resetButton">clear</button>
+              <div id="slidercontainer">
+                <button class="option-button optionsButton" id="weightButton">weight</button>
+                <input name="stroke-slider" id="stroke-slider" class="option-button" type="range" min="1" max="36" value="3">
+                <output for="stroke-slider" id="stroke-slider-label" onforminput="value=stroke-slider.valueAsNumber;"></output>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CODING TAB -->
+      <div id="Coding" onload="init()" class="component-background tabcontent tab-item-content">
+        <div id="coding-wrapper" class="max-scale">
+          <div id="coding-option" class="max-scale">
+
+            <button id="theme-button" class="option-button option-button btn">Themes</button>
+            <ul id='themes-options' class="code-dropdowns">
+              <!-- themes options will be added here as li -->
+              <!-- themes options will be added here as li -->
+              <!-- themes options will be added here as li -->
+            </ul>
+            <button id="code-language-button" class="option-button option-button btn">Java</button>
+            <ul id='code-language-options' class="code-dropdowns">
+              <!-- code language options will be added here as li -->
+              <!-- code language options will be added here as li -->
+              <!-- code language options will be added here as li -->
+            </ul>
+          </div>
+          <div id="firepad-container" class="max-scale"></div>
+          <div id="coding-interaction" class="max-scale">
+            <div id="coding-input" class="max-scale">
+              <span class="coding-text">Command Line Argument</span>
+              <input id="coding-input-area" class="coding-input-input" value="&quot;Hey Collaborate Live!&quot;" placeholder="...enter arguments here..." type="text">
+              <span class="coding-text">Standard Input</span>
+              <input id="coding-input-std" class="coding-input-input" value="12345" placeholder="...enter standard input here..." type="text">
+            </div>
+            <div id="coding-interaction-options" class="max-scale">
+              <button type="button" name="button" id="execute-code" class="option-button option-button coding-buttons">execute</button>
+            </div>
+            <div id="coding-output" class="max-scale">
+              <span class="coding-text">Output</span>
+              <textarea id="coding-output-area" class="inner-component-background"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TERMINAL TAB -->
+      <div id="Term" class="component-background tabcontent tab-item-content">
+        <div id="terminal-login">
+          <span id="terminal-login-title">Terminal Login</span>
+          <input id="terminal-type-input" class="terminal-input" type="text" name="terminal-type" placeholder="enter server type here... [local / server]">
+          <input id="terminal-host-input" class="terminal-input" type="text" name="terminal-host" placeholder="enter host here... [type: server only]">
+          <input id="terminal-port-input" class="terminal-input" type="text" name="terminal-port" placeholder="enter port here... [default: 22]">
+          <input id="terminal-username-input" class="terminal-input" type="text" name="terminal-username" placeholder="enter username here...">
+          <input id="terminal-password-input" class="terminal-input" type="password" name="terminal-username" placeholder="enter password here...">
+          <span id="terminal-loading">loading...</span>
+        </div>
+
+        <div id="terminal-container">
+          <div id="terminal"></div>
+        </div>
+      </div>
+
+
+      <!-- TASKS TAB -->
+      <div id="Tasks" class="component-background tabcontent tab-item-content">
+
+        <!-- GUIDE LIST -->
+        <div id="task-container" class="container" style="margin-top: 10px;">
+          <ul id="login-to-view" class="collapsible z-depth-0 tasks" style="border: none;">
+            <!-- task procedure will be added to here -->
+            <!-- task procedure will be added to here -->
+            <!-- task procedure will be added to here -->
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- CHAT & VIDEO -->
+    <div id="interactioncontainer" class="max-scale max-limit">
+      <div id="chat" class="component-background max-scale inter-item-content">
+        <div id="chat-inner">
+          <div class="chat chatmessages max-scale">
+            <ul id="messages" class="inner-component-background max-scale">
+              <!-- messages will be added to here as li -->
+              <!-- messages will be added to here as li -->
+              <!-- messages will be added to here as li -->
+            </ul>
+          </div>
+          <div class="chat chatinput max-scale">
+            <input id="user-input" class="fg-white" type="text" placeholder="type here...">
+          </div>
+        </div>
+      </div>
+      <div id="getname" class="component-background inter-item-content">
+        <span id="getName-text">Name + Enter</span>
+        <input id="username-input"  type="text" name="username" placeholder="enter your name here...">
+      </div>
+
+      <div id="video-area" class="component-background max-scale inter-item-content">
+
+        <!-- <h1>Realtime communication with WebRTC</h1> -->
+        <video id="localVideo" class="inner-component-background video-area-video" autoplay playsinline></video>
+        <video id="remoteVideo" class="inner-component-background video-area-video" autoplay playsinline></video>
+        <div id="video-buttons">
+          <button id="startButton" class="option-button video-button">Start</button>
+          <button id="callButton" class="option-button video-button">Call</button>
+          <button id="hangupButton" class="option-button video-button">Hang Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- firebase library -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-database.js"></script>
+
+
+
+  <!-- init firebase & firepad -->
+  <script type="text/javascript">
+    //init firebase config
+    firebase.initializeApp(config);
+    // Make Auth and Firestore references.
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const functions = firebase.functions();
+
+    // get hash from firepad
+    var ref = firebase.database().ref();
+    var hash = window.location.hash.replace(/#/g, '');
+    if (hash) {
+      ref = ref.child(hash);
+    } else {
+      ref = ref.push(); // generate unique location.
+      window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+      hash = ref.key;
+    }
+    if (typeof console !== 'undefined') {
+      console.log('Firebase data: ', ref.toString());
+    }
+  </script>
+  <!-- init socket io -->
+  <script type="text/javascript">
+    const socket = io();
+    const port = 3000;
+    socket.connect('http://' + window.location.host);
+    console.log("socket connect to: " + window.location.host);
+
+    // join room
+    socket.emit('join or create', hash, (joined) => {
+      console.log("joined " + (joined ? "existing" : "new") + " socket room: " + hash);
+    });
+
+    const themes = ['ambiance', 'chaos', 'github', 'chrome', 'kuroir', 'monokai', 'terminal', 'textmate', 'twilight', 'xcode'];
+    const codes = ['abc','actionscript','ada','asciidoc','assembly_x86','c_cpp','cobol','coffee','csharp','css','django','dockerfile','eiffel','ejs','elixir','erlang','golang','groovy','haskell','html','ini','jade','java','javascript','json','jsp','kotlin','latex','less','lisp','matlab','objectivec','pascal','perl','pgsql','php','plain_text','powershell','prolog','properties','python','r','rhtml','ruby','rust','sass','scala','scheme','scss','sjs','snippets','sql','tex','typescript','vbscript','vhdl','xml'];
+    initThemesAndCode();
+
+    function initThemesAndCode() {
+      for (var index = 0; index < themes.length; index++) {
+        $('#themes-options').append('<li class="code-dropdown-item" onclick="setTheme(' + index + ')">' + themes[index] + '</li>');
+        if(themes[index].length >= 8) {
+          $('#themes-options > .code-dropdown-item:nth-child(' + (index + 1) + ')').addClass('smallButtonFont');
+        }
+      }
+      for (var index = 0; index < codes.length; index++) {
+        $('#code-language-options').append('<li class="code-dropdown-item" onclick="setCode(' + index + ')">' + codes[index] + '</li>');
+        if(codes[index].length >= 8) {
+          $('#code-language-options > .code-dropdown-item:nth-child(' + (index + 1) + ')').addClass('smallButtonFont');
+        }
+      }
+    }
+  </script>
+
+  <!-- login -->
+  <script src="scripts/login.js"></script>
+  <!-- auth -->
+  <script src="scripts/auth.js"></script>
+  <!-- firepad -->
+  <script src="scripts/firepad.js"></script>
+  <!-- compiler -->
+  <script defer src="scripts/exec.js"></script>
+  <!-- background transition effect -->
+  <script src="scripts/canvas-background.js"></script>
+  <!-- chat -->
+  <script defer src="scripts/chat.js"></script>
+  <!-- video -->
+  <script defer src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <!-- P5.JS LIBRARIES -->
+  <script defer src=http://CDN.JSDelivr.net/npm/p5></script>
+  <script defer src=http://CDN.JSDelivr.net/npm/p5/lib/addons/p5.dom.min.js></script>
+  <!-- canvas -->
+  <script defer language="javascript" type="text/javascript" src="scripts/sketch.js"></script>
+  <!-- terminal -->
+  <script src="scripts/terminal.js"></script>
+  <!-- tab -->
+  <script language="javascript" type="text/javascript" src="scripts/tabstyle.js"></script>
+  <!-- external js -->
+  <script language="javascript" type="text/javascript" src="scripts/materialize.min.js"></script>

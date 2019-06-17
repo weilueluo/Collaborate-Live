@@ -1,0 +1,35 @@
+{
+  "name": "Collaborate_Live",
+  "version": "1.0.0",
+  "description": "Powerful Interview Tool integrating sockets, P5, webRTC & firepad",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.cs.man.ac.uk/e38160wl/clive.git"
+  },
+  "keywords": [
+    "sockets",
+    "p5.js",
+    "node",
+    "webRTC",
+    "Videocall",
+    "firepad"
+  ],
+  "author": "X5",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "jsdom": "^14.0.0",
+    "node-static": "^0.7.11",
+    "socket.io": "^2.2.0",
+    "ssh2": "^0.8.2",
+    "utf8": "^3.0.0",
+    "xterm": "^3.12.0",
+    "node-pty": "^0.8.1"
+  }
+}

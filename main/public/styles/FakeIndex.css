@@ -1,0 +1,156 @@
+
+.a-container {
+  height: 100vh;
+  width: 100vw;
+  display: -ms-grid;
+  display: grid;
+}
+
+.content {
+  margin: auto;
+  height: 100%;
+  width: 60%;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "info" "content";
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  -ms-grid-rows: 1fr 5fr;
+  grid-template-rows: 1fr 5fr;
+}
+
+.content {
+  margin: auto;
+  height: 100%;
+  width: 55%;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "info" "content";
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  -ms-grid-rows: 1fr 3% 5fr;
+  grid-template-rows: 1fr 5fr;
+  grid-gap: 3%;
+  margin-top: 5%;
+}
+
+.grid-item {
+  height: 100%;
+  width: 100%;
+}
+
+.user-info {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: info;
+}
+
+.user-content {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+    grid-area: content;
+    display: -ms-grid;
+    display: grid;
+        grid-template-areas: "achievements" "recent";
+    -ms-grid-rows: 1fr 6% 5fr;
+    grid-template-rows: 1fr 5fr;
+    grid-gap: 6%;
+    padding: 25px 0;
+}
+
+.user-info {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: info;
+    display: -ms-grid;
+    display: grid;
+        grid-template-areas: "icon summary";
+    -ms-grid-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr;
+}
+
+.user-icon {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: icon;
+    display: -ms-grid;
+    display: grid;
+}
+
+.icon {
+    height: 100%;
+    width: 60%;
+    margin: auto auto auto 0;
+    background-color: #c98d8d;
+}
+
+.user-summary {
+    display: -ms-grid;
+    display: grid;
+        grid-template-areas: "name email" "age address";
+    -ms-grid-columns: 1fr 20px 3fr;
+    grid-template-columns: 1fr 3fr;
+    -ms-grid-rows: 1fr 20px 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 20px;
+    /*! padding: 10px; */
+}
+
+.user-summary > .grid-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #dba8ce;
+  font-size: 1.5em;
+}
+
+.text-container {
+  margin: auto;
+  color: white;
+}
+
+.achievement {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: achievements;
+}
+
+.recent-activities {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    grid-area: recent;
+}
+
+.user-content > .grid-item {
+  background-color: #e3addc;
+}
+
+.age {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: age;
+}
+
+.email {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: email;
+}
+
+.name {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: name;
+}
+
+.address {
+  -ms-grid-row: 3;
+  -ms-grid-column: 3;
+  grid-area: address;
+}

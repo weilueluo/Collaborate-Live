@@ -1,0 +1,313 @@
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  font-family: 'Nunito', sans-serif;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: "title" "boxes";
+    grid-template-rows: 1fr 2fr;
+    grid-template-columns: auto;
+}
+
+#title {
+    font-size: 4.5em;
+    font-weight: 700;
+    display: flex;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%;
+    height: 40%;
+    padding: 0 15%;
+}
+
+#title:hover {
+    box-shadow: 0 0 20px 3px #71aaaab3;
+    background-color: #2e848966;
+    border-radius: 10px;
+}
+
+#title:hover #live {
+    text-shadow: -10px -3px 5px #fff9;
+}
+
+@keyframes live-shadow {
+  0%, 100% {
+    text-shadow: -10px -3px 5px #fff9;
+  }
+
+  25% {
+    text-shadow: 10px -3px 5px #fff9;
+  }
+
+  50% {
+    text-shadow: 10px 7px 5px #fff9;
+  }
+
+  75% {
+    text-shadow: 5px 0px 5px #fff9;
+  }
+}
+
+#title:hover #collaborate {
+    text-shadow: -10px -3px 5px #00000080;
+    animation-name: collab-shadow;
+}
+
+#title:hover #live:hover {
+    text-shadow: 10px 3px 5px #fff9;
+}
+
+#title:hover #collaborate:hover {
+    text-shadow: 10px 3px 5px #00000080;
+}
+
+#collaborate {
+color: #000;
+text-shadow: 0px 0px 30px #000;
+}
+
+#live {
+  -webkit-text-fill-color: #ffffff00;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #686868;
+  -webkit-filter: brightness(1) drop-shadow(0px 0px 10px white);
+          filter: brightness(1) drop-shadow(0px 0px 10px white);
+  text-shadow: 0px 0px 50px #fff;
+}
+
+#titleBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: column;
+  transition: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+
+#userRegion {
+  width: 65%;
+  height: 35%;
+  display: -ms-grid;
+  display: grid;
+  position: absolute;
+  bottom: 15%;
+  grid-template-areas: "left mid right";
+  grid-template-columns: 1fr 1fr 1fr;
+  left: 50%;
+  transform: translateX(-50%);
+  grid-gap: 10%;
+}
+
+#userRegion > * {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  position: absolute;
+}
+
+#modal-login {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: mid;
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+}
+
+.flip-able > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.flip-back {
+  /*! transform: rotateY(180deg); */
+  background-color: #5a9799b3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.flip-front {
+  background-color: #f0f0c266;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "title" "space";
+  -ms-grid-rows: 1fr 2fr;
+  grid-template-rows: 1fr 2fr;
+}
+
+.flip-face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.flip-wrapper {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.flip-able:hover .flip-wrapper,
+.flip-able:focus-within .flip-wrapper {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+
+#quickstartBox {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: left;
+}
+
+#video {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+
+.form {
+  color: aliceblue;
+  margin: auto;
+  max-height: 100%;
+  height: 100%;
+  width: 70%;
+}
+
+.form-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: space-around;
+    max-height: 100%;
+    height: 100%;
+    font-size: 1.2em;
+}
+
+.form-input {
+  margin: 10px;
+}
+
+.flip-front-title {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: title;
+    display: flex;
+            align-items: center;
+            justify-content: center;
+    font-size: 2em;
+    color: #f9fdffcc;
+    font-weight: bold;
+    margin: auto;
+    height: 50%;
+    width: 85%;
+    background-color: #93c7c999;
+    -webkit-box-shadow: 0 0 10px 0 white;
+            box-shadow: 0 0 10px 0 white;
+}
+
+#fill {
+    height: 50px;
+    width: 50px;
+}
+
+#modal-signup {
+  grid-area: right;
+}
+
+.form-form input[class=form-input] {
+    background-color: #3a565c80;
+    border: 0px;
+    border-left: 50px solid white;
+    border-right: 50px solid #ffffff80;
+    height: 1.7em;
+    width: 0;
+    text-align: center;
+}
+
+.form-form input[class=form-input]:focus {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    width: 90%;
+    caret-color: white;
+    color: wheat;
+}
+
+.form-button {
+    background-color: #ffffff4d;
+    border: 0px solid white;
+    color: #eaeaea;
+    padding: 0.4em 1em;
+    margin: 20px;
+    -webkit-transition: border 0s;
+    -o-transition: border 0s;
+    transition: border 0s;
+    width: 50%;
+    height: 12%;
+}
+
+.form-button:hover {
+    -webkit-box-shadow: 0 0 10px 0 white;
+            box-shadow: 0 0 10px 0 white;
+    border: 0px solid white;
+    color: white;
+}
+
+.border-radius-10px {
+  border-radius: 10px;
+}
+
+.user-select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
+}

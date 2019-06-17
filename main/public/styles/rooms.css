@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#wrapper {
+  height: 100vh;
+  width: 100vw;
+}
+
+#navbar {
+  height: 10vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2em;
+
+  background: #666;
+}
+
+#icon::after {
+  content: ' Collaborate Live';
+}
+
+#refresh-button {
+    background: #666;
+    border: none;
+    padding: 0.75em 2em;
+    color: wheat;
+}
+
+#rooms-container {
+  height: 90vh;
+  width: 100vw;
+  top: 10vh;
+  background: #666;
+  position: fixed;
+
+  display: grid;
+  grid-template-areas: "options" "rooms-ul";
+  grid-template-rows: 10% 90%;
+  grid-template-columns: 1fr;
+}
+
+#rooms-container > * {
+  width: 50%;
+  margin: 10px auto;
+}
+
+#rooms-container-options {
+  grid-area: options;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #444;
+}
+
+#rooms-ul {
+  grid-area: rooms-ul;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #444;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  transition: 1s;
+}
+
+.rooms-li {
+  width: 90%;
+  min-height: 10%;
+  background: #666;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #c8b491;
+}
+
+.rooms-li:hover {
+  cursor: pointer;
+}
+
+.hover-effect:hover {
+  box-shadow: 0 0 5px 0 wheat;
+}
+
+.hover-effect {
+  transition: 0.2s;
+}
+
+#no-room-li {
+  margin: 5%;
+  color: #9e845a;
+  border: 1px solid #635d51;
+  padding: 1em;
+}

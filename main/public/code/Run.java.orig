@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+public class Run { 
+public static void main(String[] args){
+    System.out.println("HEllow");
+}
+=======
+//java coding yeah
+public class Run {
+  public static void main(String[] args) {
+    System.out.println("Hello World!");    
+    System.out.println(args[0]);    
+    
+  }
+>>>>>>> compiler ui ++++
+}

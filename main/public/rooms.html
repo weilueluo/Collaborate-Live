@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborate Live Rooms</title>
+  <!-- stylesheet -->
+  <link rel="stylesheet" href="styles/rooms.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="navbar">
+      <i id="icon" class="fab fa-diaspora"></i>
+    </div>
+
+    <div id="rooms-container">
+      <div id="rooms-container-options">
+        <button id="refresh-button" class="hover-effect" type="button" name="button" onclick="refresh_rooms()">Refresh</button>
+      </div>
+      <ul id="rooms-ul">
+        <!-- room will be added to here -->
+        <!-- room will be added to here -->
+        <!-- room will be added to here -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Socket IO -->
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+  <!-- JQuery -->
+  <script
+			  src="https://code.jquery.com/jquery-3.4.0.min.js"
+			  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+			  crossorigin="anonymous">
+  </script>
+
+  <script type="text/javascript" src="scripts/rooms.js"></script>
+
+  <script type="text/javascript">
+    //init connection
+    const host = window.location.host;
+    const socket = io('http://' + host);
+    console.log("socket connected to: " + host);
+
+    refresh_rooms();
+
+    var update = setInterval(function() {
+      update_rooms()
+    },500); // update automatically every 1s
+
+  </script>
+
+
+</body>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Live Login</title>
+
+    <!-- Links to firebase library-->
+    <script type="text/javascript" src ="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+
+    <script language="javascript" type="text/javascript" src="scripts/config.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+</head>
+
+<body>
+        <div id="wrapper">
+          <div id="titleBox" class="center">
+              <div id="title" class="border-radius-10px">
+                  <span id="collaborate" class="user-select-none">Collaborate</span>
+                  <span id="live" class="user-select-none">Live</span>
+              </div>
+          </div>
+          <div id="userRegion">
+
+                <div id="modal-login" class="flip-able border-radius-10px formBox">
+                    <div class="flip-wrapper border-radius-10px">
+                        <div class="flip-face flip-back border-radius-10px">
+                            <div class="form">
+                                <form id="login-form" class="form-form" method="post">
+                                    <div id="fill"></div>
+                                    <span class="user-select-none">EMAIL</span>
+                                    <br>
+                                    <input id="login-email" class="form-input" type="email" name="username" required="">
+                                    <br>
+                                    <span class="user-select-none">PASSWORD</span>
+                                    <br>
+                                    <input id="login-password" class="form-input" type="password" name="password" required="">
+                                    <br>
+                                    <input class="form-button border-radius-10px" type="submit" name="submit" value="login">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="flip-face flip-front border-radius-10px">
+                            <span class="user-select-none flip-front-title">login</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quickstartBox" class="flip-able border-radius-10px">
+                    <div class="flip-wrapper">
+                        <div class="flip-face flip-back border-radius-10px"></div>
+                        <div class="flip-face flip-front border-radius-10px">
+                            <span class="user-select-none flip-front-title">quick start</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="modal-signup" class="flip-able border-radius-10px formBox">
+                    <div class="flip-wrapper border-radius-10px">
+                        <div class="flip-face flip-back border-radius-10px">
+                            <div class="form">
+                                <form id="signup-form" class="form-form">
+                                    <div id="fill"></div>
+                                    <span class="user-select-none">EMAIL</span>
+                                    <br>
+                                    <input id="signup-email" class="form-input" type="email" name="username" required="">
+                                    <br>
+                                    <span class="user-select-none">PASSWORD</span>
+                                    <br>
+                                    <input id="signup-password" class="form-input" type="password" name="password" required="">
+                                    <br>
+                                    <input class="form-button border-radius-10px" type="submit" name="submit" value="signup">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="flip-face flip-front border-radius-10px">
+                            <span class="user-select-none flip-front-title">sign up</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+        <div id="videoRegion">
+            <video id="video" autoplay="" muted="" loop="">
+                <source src="styles/background.mp4" type="video/mp4"> Your browser does not support the video tag.
+            </video>
+        </div>
+        <!-- This is loading in the firebase library.-->
+          <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-firestore.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-functions.js"></script>
+          <script>
+            // Initialize Firebase. Created a firebase object called config.
+            var config = {
+              apiKey: "AIzaSyDpVHsQfLiYDd9dkqspmFHpb8JCj6kZGdw",
+              authDomain: "collboratelive.firebaseapp.com",
+              databaseURL: "https://collboratelive.firebaseio.com",
+              projectId: "collboratelive",
+              storageBucket: "collboratelive.appspot.com",
+              messagingSenderId: "58825199891"
+            };
+            // Initializes our connection to the firebase application.
+            firebase.initializeApp(config);
+
+            // Make Auth and Firestore references.
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            const functions = firebase.functions();
+          </script>
+
+
+          <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+          <script src="scripts/login-auth.js"></script>
+          <script src="scripts/login-index.js"></script>
+</body>
+
+</html>
